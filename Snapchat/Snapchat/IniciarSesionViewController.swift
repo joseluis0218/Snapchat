@@ -28,6 +28,8 @@ class IniciarSesionViewController: UIViewController {
         FIRAuth.auth()?.signIn(withEmail: emailTextField.text!, password: passwordTextField.text!, completion: {(user, error) in
             
             print("Intentamos Iniciar Sesiòn")
+            print("Tenemos el siguiente error:\(String(describing: error))")
+            print("-----------")
             if error != nil{
                 FIRAuth.auth()?.createUser(withEmail: self.emailTextField.text!, password: self.passwordTextField.text!, completion: { (user,error) in
                     print("Intentamos crear un usuario")

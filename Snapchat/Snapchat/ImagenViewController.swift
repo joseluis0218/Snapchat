@@ -17,6 +17,8 @@ class ImagenViewController: UIViewController, UIImagePickerControllerDelegate,UI
     @IBOutlet weak var elegirContactoBoton: UIButton!
     
     var imagePicker = UIImagePickerController()
+    var imageID = NSUUID().uuidString
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
@@ -44,11 +46,16 @@ class ImagenViewController: UIViewController, UIImagePickerControllerDelegate,UI
             if error != nil{
                 print("Ocurrió un error:\(String(describing: error))")
             }else{
-                self.performSegue(withIdentifier: "seleccionarContactoSegue", sender: nil)
+                self.performSegue(withIdentifier: "seleccionarContactoSegue", sender: metadata?.downloadURL()?.absoluteString)
             }
         })
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let siguienteVC = segue.destination as! ElegirUsuarioViewController
+        
+        print("Sender",sender as! String!)
+        siguienteVC.descrip = descripcionTextField.text!
+        siguienteVC.imageID = imageID
     }
 }
